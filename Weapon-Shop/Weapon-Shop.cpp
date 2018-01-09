@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <iostream>
 #include <string>
 
@@ -19,6 +19,103 @@ public:
 		range = rang;
 		weight = w;
 		cost = c;
+	}
+};
+
+class Node
+{
+public:
+	int data;
+	Node* left;
+	Node* right;
+	Node(int d)
+	{
+		data = d;
+		left = right = NULL;
+	}
+};
+
+class BinaryTree
+{
+public:
+	Node *root;
+	BinaryTree()
+	{
+		root = NULL;
+	}
+	void push(int x)
+	{
+		Node* newNode = new Node(x);
+		if (root == NULL)
+		{
+			root = newNode;
+			return;
+		}
+
+		Node* parent = root;
+		Node* current = root;
+		while (current != NULL)
+		{
+			parent = current;
+			if (current->data < x)
+			{
+				current = current->right;
+			}
+			else
+				current = current->left;
+		}
+		if (parent->data < x)
+			parent->right = newNode;
+		else
+			parent->left = newNode;
+	}
+
+	void displayInOrder()
+	{
+		cout << " In-Order: ";
+		inOrder(root);
+	}
+
+	void inOrder(Node* n)
+	{
+		if (n != NULL)
+		{
+			inOrder(n->left);
+			cout << n->data << " ";
+			inOrder(n->right);
+		}
+	}
+
+	void displayPreorder()
+	{
+		cout << " Preorder: ";
+		preOrder(root);
+	}
+
+	void preOrder(Node* n)
+	{
+		if (n != NULL)
+		{
+			cout << n->data << " ";
+			preOrder(n->left);
+			preOrder(n->right);
+		}
+	}
+
+	void displayPostOrder()
+	{
+		cout << "Postorder: ";
+		postOrder(root);
+	}
+
+	void postOrder(Node* n)
+	{
+		if (n != NULL)
+		{
+			postOrder(n->left);
+			postOrder(n->right);
+			cout << n->data << " ";
+		}
 	}
 };
 
@@ -175,3 +272,26 @@ int main() {
 
 	return 0;
 }
+
+
+//Binary Tree testing:
+/*
+int main()
+{
+	BinaryTree b;
+	b.push(40);
+	b.push(25);
+	b.push(78);
+	b.push(32);
+	b.push(10);
+
+	b.displayInOrder();
+	cout << endl;
+	b.displayPreorder();
+	cout << endl;
+	b.displayPostOrder();
+	cout << endl;
+
+	return 0;
+}​
+*/
