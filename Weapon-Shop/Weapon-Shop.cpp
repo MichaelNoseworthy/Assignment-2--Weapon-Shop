@@ -314,7 +314,7 @@ void addWeapons(hashTable h) {
 		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
 	}
 }
-
+*/
 void addWeapons(BinaryTree &bt)
 {
 	int index = 1;
@@ -332,7 +332,7 @@ void addWeapons(BinaryTree &bt)
 		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
 	}
 }
-*/
+
 void showRoom(hashTable ht, Player *p) {
 	string choice;
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
@@ -387,7 +387,7 @@ int main() {
 	cout << endl;
 	//Binary Tree Testing
 	BinaryTree b;
-	addWeaponstest(b);
+	addWeapons(b);
 	
 	string weaponName = "test";int weaponRange = 1; int weaponDamage = 2; float weaponWeight = 3; float weaponCost = 3;
 	//Weapon w(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
