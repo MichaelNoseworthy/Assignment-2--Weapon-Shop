@@ -4,6 +4,8 @@
 
 using namespace std;
 
+bool debugging = false;
+
 
 class Weapon {
 public:
@@ -53,9 +55,17 @@ public:
 
 	}
 };  
-
-
-
+/*
+void put(Weapon *item) {
+	int location = hash(item->weaponName); //gets location in table based on name
+	while (table[location] != NULL) {
+		location = (location + 1);      // look one down
+		location = location%tableLength; // to ensure wraparound at end of array
+	}
+	table[location] = item;
+	numItems++;
+}
+*/
 class BinaryTree
 {
 public:
@@ -67,7 +77,7 @@ public:
 		int numItems;
 	}
 
-	void push(int x, Weapon weapon)
+	void push(int x, Weapon *item)
 	{
 		//Weapon
 		int index = 0;
@@ -75,12 +85,13 @@ public:
 		//WeaponEnd
 		Node* newNode = new Node(x);
 		//Weapon
-		Weapon* newWeapon = new Weapon(weapon);
+		//Weapon* newWeapon = new Weapon(item);
+		
+		newNode->table[index] = item;
 		//WeaponEnd
 		if (root == NULL)
 		{
 			root = newNode;
-			
 			return;
 		}
 
@@ -98,24 +109,17 @@ public:
 		}
 		if (parent->data < x)
 		{
-			parent->right = newNode;
-			//Weapon
-			parent->right->table[tableSize] = newWeapon;
-			//WeaponEnd
-			
+			parent->right = newNode;			
 		}
 		else
 		{
 			parent->left = newNode;
-			//Weapon
-			parent->left->table[tableSize] = newWeapon;
-			//WeaponEnd
 		}
 	}
 
 	void displayInOrder()
 	{
-		cout << " In-Order: ";
+		cout << " In-Order: " << endl;
 		inOrder(root);
 	}
 
@@ -123,18 +127,23 @@ public:
 	{
 		if (n != NULL)
 		{
+			//Cout Needs if statement so that it does not appear when there is no child.
+			//cout << " In-Order: ";
 			inOrder(n->left);
-			//cout << n->data << " ";
+			cout << n->data << " ";
 			//Weapon
-			int count = 0;
-			for (int x = 0; x < n->tableLength; x++) {
-				if (n->table[x] != NULL) {
-					cout << "Name: " << n->table[x]->weaponName << "   Damage:" << n->table[x]->damage << "    Cost:" << n->table[x]->cost << endl;
-				}
-			}
+			int x = 0;
+			Weapon *ptr;
+			//weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost
+			//string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
+			ptr = n->table[0];
+			cout << "Name: " << ptr << "   Damage:";//<< n->table[x++] << "    Cost:" << n->table[x++] << endl;
+			//cout << "test" << endl;
 			//WeaponEnd
 
 			inOrder(n->right);
+			//Cout Needs if statement so that it does not appear when there is no child.
+			//cout << " In-Order: ";
 		}
 	}
 
@@ -219,6 +228,7 @@ public:
 	void printTable() {
 		int count = 0;
 		for (int x = 0; x<tableLength; x++) {
+			
 			if (table[x] != NULL) {
 				cout << "Name: " << table[x]->weaponName << "   Damage:" << table[x]->damage << "    Cost:" << table[x]->cost << endl;
 			}
@@ -271,7 +281,7 @@ public:
 	}
 
 };
-
+/*
 void addWeapons(hashTable h) {
 	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
 	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
@@ -287,6 +297,24 @@ void addWeapons(hashTable h) {
 	}
 }
 
+void addWeapons(BinaryTree &bt)
+{
+	int index = 1;
+	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
+	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
+	cout << "Please enter the NAME of the Weapon ('end' to quit):"; cin >> weaponName;
+	while (weaponName.compare("end") != 0) {
+		cout << "Please enter the Range of the Weapon (0-10):"; cin >> weaponRange;
+		cout << "Please enter the Damage of the Weapon:"; cin >> weaponDamage;
+		cout << "Please enter the Weight of the Weapon (in pounds):"; cin >> weaponWeight;
+		cout << "Please enter the Cost of the Weapon:"; cin >> weaponCost;
+		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, w);
+		index++;
+		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
+	}
+}
+*/
 void showRoom(hashTable ht, Player *p) {
 	string choice;
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
@@ -311,9 +339,21 @@ void showRoom(hashTable ht, Player *p) {
 	}
 	cout << endl;
 }
-
-
-
+/*
+void addWeaponstest(BinaryTree bt)
+{
+	int index = 1;
+	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
+	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
+	weaponName = "test"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+	cout << weaponName << " " << weaponRange << " " << weaponDamage << " " << weaponWeight << " " << weaponCost << endl;
+	cout << "Begin order testing: " << endl;
+	
+		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, w);
+		index++;
+}
+*/
 
 int main() {
 	/*
@@ -328,12 +368,21 @@ int main() {
 	*/
 	cout << endl;
 	//Binary Tree Testing
-	string weaponName = "test";int weaponRange = 1; int weaponDamage = 2; float weaponWeight = 3; float weaponCost = 3;
-	Weapon w(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
-	
-	
 	BinaryTree b;
+	//addWeaponstest(b);
+	
+	string weaponName = "test";int weaponRange = 1; int weaponDamage = 2; float weaponWeight = 3; float weaponCost = 3;
+	//Weapon w(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+	Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+	
+	
+	
+	
 	b.push(40, w);
+	//b.push(39, w);
+	weaponName = "newtest"; weaponRange = 50; weaponDamage = 52; weaponWeight = 53; weaponCost = 53;
+	Weapon *y = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+	//b.push(41, y);
 	/*
 	b.push(25);
 	b.push(78);
@@ -347,6 +396,7 @@ int main() {
 	b.displayPostOrder();
 	cout << endl;
 
+	system("PAUSE");
 	return 0;
 }
 
