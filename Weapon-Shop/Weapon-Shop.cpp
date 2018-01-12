@@ -110,7 +110,37 @@ public:
 			parent->left = newNode;
 		}
 	}
+	/*
+	int getNode(Node data)
+	{
+		if (root == data)
+		{
+			return data;
+		}
 
+		Node* parent = root;
+		Node* current = root;
+		while (current != data)
+		{
+			parent = current;
+			if (current->data < data)
+			{
+				current = current->right;
+			}
+			else
+				current = current->left;
+		}
+		if (parent->data < data)
+		{
+			parent->right = newNode;
+		}
+		else
+		{
+			parent->left = newNode;
+		}
+		else return -1;
+	}
+	*/
 	void displayInOrder()
 	{
 		cout << " In-Order: " << endl;
@@ -302,11 +332,32 @@ void addWeapons(BinaryTree &bt)
 		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
 	}
 }
+/*
+void showRoomtest(BinaryTree ht/*, Player *p) {
+	string name;
+	int choice;
+	Weapon *w = ht.get(choice);
 
-void showRoom(hashTable ht, Player *p) {
+
+	void get(choice)
+	{
+		//get location of node somhow
+			//location code of node
+		//When you have the location:
+		//Node ^ptr = n->table[0];
+		//return ptr;
+	}
+
+	name = ht.get(choice);
+	cout << name;
+
+}
+*/
+/*
+void showRoom(BinaryTree ht, Player *p) {
 	string choice;
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
-	ht.printTable();
+	ht.displayInOrder();
 	cout << " You have " << p->money << " money." << endl;
 	cout << "Please select a weapon to buy('end' to quit):"; cin >> choice;
 	while (choice.compare("end") != 0 && !p->inventoryFull()) {
@@ -327,24 +378,38 @@ void showRoom(hashTable ht, Player *p) {
 	}
 	cout << endl;
 }
-/*
+*/
 //OLD:
 void addWeaponstest(BinaryTree &bt)
 {
 	int index = 1;
 	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
 	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
-	weaponName = "test"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+	weaponName = "test1"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 	cout << weaponName << " " << weaponRange << " " << weaponDamage << " " << weaponWeight << " " << weaponCost << endl;
 	cout << "Begin order testing: " << endl;
 	
 		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, w);
 		index++;
-		weaponName = "test2"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
-		bt.push(index, w);
+		weaponName = "test3"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		Weapon *c = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, c);
+		index++;
+		Weapon *d = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, d);
+		index++;
+		weaponName = "test4"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		Weapon *e = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, e);
+		index++;
+		Weapon *f = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, f);
+		index++;
+		weaponName = "test5"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		Weapon *g = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, g);
 }
-*/
 int main() {
 	/*
 	//OLD STUFF:
@@ -358,18 +423,31 @@ int main() {
 	pl.printCharacter();
 	*/
 
+	/*
+	string pname;
+	cout << "Please enter Player name:" << endl;
+	cin >> pname;
+	Player pl(pname, 45);
+	*/
+
 	//NEW STUFF:
 	cout << endl;
 	//Binary Tree Testing
 	BinaryTree b;
-	addWeapons(b);
+	addWeaponstest(b); // Test code
+	//addWeapons(b);
 
+	//showRoom(b, &pl);
+	//pl.printCharacter();
 
+	//Testing:
 	b.displayInOrder();
 	cout << endl;
+	/*
 	b.displayPreorder();
 	cout << endl;
 	b.displayPostOrder();
+	*/
 	cout << endl;
 
 	system("PAUSE");
