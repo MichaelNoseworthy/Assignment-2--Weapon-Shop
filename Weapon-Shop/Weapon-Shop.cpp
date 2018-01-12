@@ -303,10 +303,10 @@ void addWeapons(BinaryTree &bt)
 	}
 }
 
-void showRoom(hashTable ht, Player *p) {
+void showRoom(BinaryTree ht, Player *p) {
 	string choice;
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
-	ht.printTable();
+	ht.displayInOrder();
 	cout << " You have " << p->money << " money." << endl;
 	cout << "Please select a weapon to buy('end' to quit):"; cin >> choice;
 	while (choice.compare("end") != 0 && !p->inventoryFull()) {
@@ -358,18 +358,27 @@ int main() {
 	pl.printCharacter();
 	*/
 
+	string pname;
+	cout << "Please enter Player name:" << endl;
+	cin >> pname;
+	Player pl(pname, 45);
+
 	//NEW STUFF:
 	cout << endl;
 	//Binary Tree Testing
 	BinaryTree b;
 	addWeapons(b);
 
+	showRoom(b, &pl);
+	pl.printCharacter();
 
+	/*
 	b.displayInOrder();
 	cout << endl;
 	b.displayPreorder();
 	cout << endl;
 	b.displayPostOrder();
+	*/
 	cout << endl;
 
 	system("PAUSE");
