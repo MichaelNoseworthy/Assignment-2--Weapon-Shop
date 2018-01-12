@@ -1,8 +1,9 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 
 using namespace std;
+
+bool debugging = false;
 
 
 class Weapon {
@@ -12,28 +13,30 @@ public:
 	int damage;
 	float weight;
 	float cost;
-
-	int data;
-	Weapon* left;
-	Weapon* right;
 	
 
-	Weapon(int d, string n, int rang, int dam, float w, float c) {
-		
-
-		data = d;
-		left = NULL; 
-	    right = NULL; 
-
+	Weapon(string n, int rang, int dam, float w, float c) {
 		weaponName = n;
 		damage = dam;
 		range = rang;
 		weight = w;
 		cost = c;
+	}
 
-		 
+	string getName()
+	{
+		string name;
+		name = weaponName;
+		return name;
 	}
 };
+
+template <typename T>
+std::string to_string(const T& object) {
+	std::ostringstream ss;
+	ss << object;
+	return ss.str();
+}
 
 class Node
 {
@@ -41,270 +44,71 @@ public:
 	int data;
 	Node* left;
 	Node* right;
+	Weapon **table;
+	//Weapon
+	int tableLength;
+	int size = 5;
+	int numItems;
+	//WeaponEnd
+
+
 	Node(int d)
 	{
 		data = d;
+		//Weapon
+		tableLength = size;
+		numItems = 0;
+		table = new Weapon*[tableLength];
+		for (int i = 0; i<tableLength; i++) {
+			table[i] = NULL;
+		}
+		//WeaponEnd
 		left = right = NULL;
+
 	}
 };  
-//#include "stdafx.h"
-//#include <iostream>
-//#include <vector>
-//#include <iterator>
-//using namespace std;
-
-class BinaryHeap
-{
-private:
-	vector <int> heap;
-	int left(int parent);
-	int right(int parent);
-	int parent(int child);
-	void heapifyup(int index);
-	void heapifydown(int index);
-
-public: BinaryHeap()
-{}
-
-		void Insert(int element);
-		void DeleteMin();
-		int ExtractMin();
-		void DisplayHeap();
-		int Size();
-
-};
-
 /*
-return Heap size
-
-*/
-
-int BinaryHeap::Size()
-{
-	return heap.size();
-}
-
-/*
-insert Element into a Heap
-
-*/
-
-
-void BinaryHeap::Insert(int element)
-{
-	heap.push_back(element);
-	heapifyup(heap.size() - 1);
-
-}
-
-/*
-Delete Minimum Element
-*/
-
-void BinaryHeap::DeleteMin()
-{
-	if (heap.size() == 0)
-	{
-		cout << "Heap is Empty" << endl;
-		return;
+void put(Weapon *item) {
+	int location = hash(item->weaponName); //gets location in table based on name
+	while (table[location] != NULL) {
+		location = (location + 1);      // look one down
+		location = location%tableLength; // to ensure wraparound at end of array
 	}
-	heap[0] = heap.at(heap.size() - 1);
-	heap.pop_back();
-	heapifydown(0);
-	cout << "The element deleted" << endl;
+	table[location] = item;
+	numItems++;
 }
-
-/*
-Extract Minmum Element
 */
-
-int BinaryHeap::ExtractMin()
-{
-	if (heap.size() == 0)
-		return -1;
-	return heap.front();
-}
-
-/*
-Display Heap
-*/
-
-void BinaryHeap::DisplayHeap()
-{
-	vector <int>::iterator pos = heap.begin();
-	cout << "Heap --> ";
-	while (pos != heap.end())
-	{
-		cout << *pos << " ";
-		pos++;
-
-	}
-	cout << endl;
-
-}
-
-/*
-return Left Child
-
-*/
-
-int BinaryHeap::left(int parent)
-{
-	int l = 2 * parent + 1;
-	if (l < heap.size())
-		return 1;
-	else
-		return -1;
-}
-
-/*
-Return Right Child
-*/
-
-int BinaryHeap::right(int parent)
-{
-	int r = 2 * parent + 2;
-	if (r < heap.size())
-		return r;
-	else
-		return -1;
-}
-
-/*
-Return Parent
-*/
-
-int BinaryHeap::parent(int child)
-{
-	int p = (child - 1) / 2;
-	if (child == 0)
-		return -1;
-	else
-		return p;
-}
-
-/*
-Maintain Heap Structure bottom up
-*/
-
-void BinaryHeap::heapifyup(int in)
-{
-	if (in >= 0 && parent(in) >= 0 && heap[parent(in)] > heap[in])
-	{
-		int temp = heap[in];
-		heap[in] = heap[parent(in)];
-		heap[parent(in)] = temp;
-		heapifyup(parent(in));
-	}
-
-}
-
-/*
-Heapify- Maintain Heap Structure top down
-*/
-
-void BinaryHeap::heapifydown(int in)
-{
-	int child = left(in);
-	int child1 = right(in);
-	if (child >= 0 && child >= 0 && heap[child] > heap[child])
-	{
-		child = child1;
-
-	}
-	if (child > 0 && heap[in] > heap[child])
-	{
-		int temp = heap[in];
-		heap[in] = heap[child];
-		heap[child] = temp;
-		heapifydown(child);
-
-	}
-}
-
-/*
-Main
-*/
-
-
-int main()
-{
-
-	BinaryHeap h;
-	while (1)
-	{
-		cout << "-------------" << endl;
-		cout << "Operations on Heap" << endl;
-		cout << "-------------" << endl;
-		cout << "1. Insert Element" << endl;
-		cout << "2. Delete Minimum Element" << endl;
-		cout << "3. Extract Minimum Element" << endl;
-		cout << "4. Print Heap" << endl;
-		cout << "5. Exit" << endl;
-		int choice, element;
-		cout << "Enter your choice: ";
-		cin >> choice;
-		switch (choice)
-		{
-		case 1:
-			cout << "Enter the element to be inserted: ";
-			cin >> element;
-			h.Insert(element);
-			break;
-		case 2:
-			h.DeleteMin();
-			break;
-		case 3:
-			cout << "Minimum Element: ";
-			if (h.ExtractMin() == -1)
-			{
-				cout << "Heap is Empty" << endl;
-			}
-
-			else
-				cout << "Minimum Element: " << h.ExtractMin() << endl;
-			break;
-		case 4:
-			cout << "Displaying elements of Hwap: ";
-			h.DisplayHeap();
-			break;
-		case 5:
-			exit(1);
-		default:
-			cout << "Enter Correct Choice" << endl;
-		}
-	}
-	return 0;
-}
-
-
-/*
 class BinaryTree
 {
 public:
 	Node *root;
-	int tableLength;
-	Weapon **table; 
-	BinaryTree(int size)
+	
+	BinaryTree()
 	{
 		root = NULL;
-		//int tableLength;
 		int numItems;
-		//Weapon **table;
 	}
-	void push(int tablelength)
+
+	void push(int x, Weapon *item)
 	{
-		Node* newNode = new Node*[tableLength];
-		//Node* newNode = new Node(x);
+		//Weapon
+		int index = 0;
+		int tableSize = 5;
+		//WeaponEnd
+		Node* newNode = new Node(x);
+		//Weapon
+		//Weapon* newWeapon = new Weapon(item);
+		
+		newNode->table[index] = item;
+		//WeaponEnd
 		if (root == NULL)
 		{
 			root = newNode;
-			**table = root; 
 			return;
 		}
 
-		Weapon* parent = root;
-		Weapon* current = root;
+		Node* parent = root;
+		Node* current = root;
 		while (current != NULL)
 		{
 			parent = current;
@@ -316,24 +120,48 @@ public:
 				current = current->left;
 		}
 		if (parent->data < x)
-			parent->right = newNode;
+		{
+			parent->right = newNode;			
+		}
 		else
+		{
 			parent->left = newNode;
+		}
 	}
 
 	void displayInOrder()
 	{
-		cout << " In-Order: ";
+		cout << " In-Order: " << endl;
 		inOrder(root);
 	}
 
-	void inOrder(Weapon* n)
+	void inOrder(Node* n)
 	{
 		if (n != NULL)
 		{
+			//Cout Needs if statement so that it does not appear when there is no child.
+			//cout << " In-Order: ";
 			inOrder(n->left);
 			cout << n->data << " ";
+			//Weapon
+			int x = 0;
+			Weapon *ptr;
+			//weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost
+			//string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
+			/*
+			  weaponName = n;
+				  damage = dam;
+				   range = rang;
+				  weight = w;
+					cost = c;
+			*/
+			cout << "Name: " << n->table[x]->weaponName << "   Damage: " << n->table[x]->damage << "    Cost:" << n->table[x]->cost << endl;
+			//cout << "test" << endl;
+			//WeaponEnd
+
 			inOrder(n->right);
+			//Cout Needs if statement so that it does not appear when there is no child.
+			//cout << " In-Order: ";
 		}
 	}
 
@@ -343,7 +171,7 @@ public:
 		preOrder(root);
 	}
 
-	void preOrder(Weapon* n)
+	void preOrder(Node* n)
 	{
 		if (n != NULL)
 		{
@@ -359,7 +187,7 @@ public:
 		postOrder(root);
 	}
 
-	void postOrder(Weapon* n)
+	void postOrder(Node* n)
 	{
 		if (n != NULL)
 		{
@@ -368,8 +196,8 @@ public:
 			cout << n->data << " ";
 		}
 	}
-}; */ 
-/*
+};  
+
 
 class hashTable {
 
@@ -418,12 +246,13 @@ public:
 	void printTable() {
 		int count = 0;
 		for (int x = 0; x<tableLength; x++) {
+			
 			if (table[x] != NULL) {
 				cout << "Name: " << table[x]->weaponName << "   Damage:" << table[x]->damage << "    Cost:" << table[x]->cost << endl;
 			}
 		}
 	}
-}; */
+}; 
 
 class Player {
 public:
@@ -470,8 +299,8 @@ public:
 	}
 
 };
-
-void addWeapons(BinaryTree h) {
+/*
+void addWeapons(hashTable h) {
 	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
 	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
 	cout << "Please enter the NAME of the Weapon ('end' to quit):"; cin >> weaponName;
@@ -481,11 +310,29 @@ void addWeapons(BinaryTree h) {
 		cout << "Please enter the Weight of the Weapon (in pounds):"; cin >> weaponWeight;
 		cout << "Please enter the Cost of the Weapon:"; cin >> weaponCost;
 		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
-		h.push(w);
+		h.put(w);
 		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
 	}
 }
 
+void addWeapons(BinaryTree &bt)
+{
+	int index = 1;
+	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
+	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
+	cout << "Please enter the NAME of the Weapon ('end' to quit):"; cin >> weaponName;
+	while (weaponName.compare("end") != 0) {
+		cout << "Please enter the Range of the Weapon (0-10):"; cin >> weaponRange;
+		cout << "Please enter the Damage of the Weapon:"; cin >> weaponDamage;
+		cout << "Please enter the Weight of the Weapon (in pounds):"; cin >> weaponWeight;
+		cout << "Please enter the Cost of the Weapon:"; cin >> weaponCost;
+		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, w);
+		index++;
+		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
+	}
+}
+*/
 void showRoom(hashTable ht, Player *p) {
 	string choice;
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
@@ -510,9 +357,24 @@ void showRoom(hashTable ht, Player *p) {
 	}
 	cout << endl;
 }
-
+void addWeaponstest(BinaryTree &bt)
+{
+	int index = 1;
+	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
+	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
+	weaponName = "test"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+	cout << weaponName << " " << weaponRange << " " << weaponDamage << " " << weaponWeight << " " << weaponCost << endl;
+	cout << "Begin order testing: " << endl;
+	
+		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+		bt.push(index, w);
+		index++;
+		weaponName = "test2"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		bt.push(index, w);
+}
 
 int main() {
+	/*
 	string pname;
 	cout << "Please enter Player name:" << endl;
 	cin >> pname;
@@ -521,7 +383,38 @@ int main() {
 	addWeapons(ht);
 	showRoom(ht, &pl);
 	pl.printCharacter();
+	*/
+	cout << endl;
+	//Binary Tree Testing
+	BinaryTree b;
+	addWeaponstest(b);
+	
+	string weaponName = "test";int weaponRange = 1; int weaponDamage = 2; float weaponWeight = 3; float weaponCost = 3;
+	//Weapon w(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+	Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+	
+	
+	
+	
+	//b.push(40, w);
+	//b.push(39, w);
+	weaponName = "newtest"; weaponRange = 50; weaponDamage = 52; weaponWeight = 53; weaponCost = 53;
+	Weapon *y = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
+	//b.push(41, y);
+	/*
+	b.push(25);
+	b.push(78);
+	b.push(32);
+	b.push(10);
+	*/
+	b.displayInOrder();
+	cout << endl;
+	b.displayPreorder();
+	cout << endl;
+	b.displayPostOrder();
+	cout << endl;
 
+	system("PAUSE");
 	return 0;
 }
 
