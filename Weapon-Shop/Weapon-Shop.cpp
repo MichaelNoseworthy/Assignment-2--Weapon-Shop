@@ -22,7 +22,21 @@ public:
 		weight = w;
 		cost = c;
 	}
+
+	string getName()
+	{
+		string name;
+		name = weaponName;
+		return name;
+	}
 };
+
+template <typename T>
+std::string to_string(const T& object) {
+	std::ostringstream ss;
+	ss << object;
+	return ss.str();
+}
 
 class Node
 {
@@ -31,7 +45,6 @@ public:
 	Node* left;
 	Node* right;
 	Weapon **table;
-
 	//Weapon
 	int tableLength;
 	int size = 5;
@@ -135,8 +148,14 @@ public:
 			Weapon *ptr;
 			//weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost
 			//string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
-			ptr = n->table[0];
-			cout << "Name: " << ptr << "   Damage:";//<< n->table[x++] << "    Cost:" << n->table[x++] << endl;
+			/*
+			  weaponName = n;
+				  damage = dam;
+				   range = rang;
+				  weight = w;
+					cost = c;
+			*/
+			cout << "Name: " << n->table[x]->weaponName << "   Damage: " << n->table[x]->damage << "    Cost:" << n->table[x]->cost << endl;
 			//cout << "test" << endl;
 			//WeaponEnd
 
