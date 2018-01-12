@@ -31,13 +31,6 @@ public:
 	}
 };
 
-template <typename T>
-std::string to_string(const T& object) {
-	std::ostringstream ss;
-	ss << object;
-	return ss.str();
-}
-
 class Node
 {
 public:
@@ -67,17 +60,6 @@ public:
 
 	}
 };  
-/*
-void put(Weapon *item) {
-	int location = hash(item->weaponName); //gets location in table based on name
-	while (table[location] != NULL) {
-		location = (location + 1);      // look one down
-		location = location%tableLength; // to ensure wraparound at end of array
-	}
-	table[location] = item;
-	numItems++;
-}
-*/
 class BinaryTree
 {
 public:
@@ -95,10 +77,10 @@ public:
 		int index = 0;
 		int tableSize = 5;
 		//WeaponEnd
+
 		Node* newNode = new Node(x);
+
 		//Weapon
-		//Weapon* newWeapon = new Weapon(item);
-		
 		newNode->table[index] = item;
 		//WeaponEnd
 		if (root == NULL)
@@ -139,35 +121,20 @@ public:
 	{
 		if (n != NULL)
 		{
-			//Cout Needs if statement so that it does not appear when there is no child.
-			//cout << " In-Order: ";
 			inOrder(n->left);
-			cout << n->data << " ";
+			cout << "Item Number: " << n->data << " ";
+
 			//Weapon
-			int x = 0;
-			Weapon *ptr;
-			//weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost
-			//string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
-			/*
-			  weaponName = n;
-				  damage = dam;
-				   range = rang;
-				  weight = w;
-					cost = c;
-			*/
-			cout << "Name: " << n->table[x]->weaponName << "   Damage: " << n->table[x]->damage << "    Cost:" << n->table[x]->cost << endl;
-			//cout << "test" << endl;
+			cout << "Name: " << n->table[0]->weaponName << "   Damage: " << n->table[0]->damage << "    Cost:" << n->table[0]->cost << endl;
 			//WeaponEnd
 
 			inOrder(n->right);
-			//Cout Needs if statement so that it does not appear when there is no child.
-			//cout << " In-Order: ";
 		}
 	}
 
 	void displayPreorder()
 	{
-		cout << " Preorder: ";
+		cout << " Preorder: " << endl;
 		preOrder(root);
 	}
 
@@ -175,7 +142,8 @@ public:
 	{
 		if (n != NULL)
 		{
-			cout << n->data << " ";
+			cout << "Item Number: " <<n->data << " ";
+			cout << "Name: " << n->table[0]->weaponName << "   Damage: " << n->table[0]->damage << "    Cost:" << n->table[0]->cost << endl;
 			preOrder(n->left);
 			preOrder(n->right);
 		}
@@ -183,7 +151,7 @@ public:
 
 	void displayPostOrder()
 	{
-		cout << "Postorder: ";
+		cout << "Postorder: " << endl;
 		postOrder(root);
 	}
 
@@ -193,7 +161,8 @@ public:
 		{
 			postOrder(n->left);
 			postOrder(n->right);
-			cout << n->data << " ";
+			cout << "Item Number: " << n->data << " ";
+			cout << "Name: " << n->table[0]->weaponName << "   Damage: " << n->table[0]->damage << "    Cost:" << n->table[0]->cost << endl;
 		}
 	}
 };  
@@ -300,6 +269,7 @@ public:
 
 };
 /*
+//OLD:
 void addWeapons(hashTable h) {
 	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
 	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
@@ -357,6 +327,8 @@ void showRoom(hashTable ht, Player *p) {
 	}
 	cout << endl;
 }
+/*
+//OLD:
 void addWeaponstest(BinaryTree &bt)
 {
 	int index = 1;
@@ -372,9 +344,10 @@ void addWeaponstest(BinaryTree &bt)
 		weaponName = "test2"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 		bt.push(index, w);
 }
-
+*/
 int main() {
 	/*
+	//OLD STUFF:
 	string pname;
 	cout << "Please enter Player name:" << endl;
 	cin >> pname;
@@ -384,29 +357,14 @@ int main() {
 	showRoom(ht, &pl);
 	pl.printCharacter();
 	*/
+
+	//NEW STUFF:
 	cout << endl;
 	//Binary Tree Testing
 	BinaryTree b;
 	addWeapons(b);
-	
-	string weaponName = "test";int weaponRange = 1; int weaponDamage = 2; float weaponWeight = 3; float weaponCost = 3;
-	//Weapon w(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
-	Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
-	
-	
-	
-	
-	//b.push(40, w);
-	//b.push(39, w);
-	weaponName = "newtest"; weaponRange = 50; weaponDamage = 52; weaponWeight = 53; weaponCost = 53;
-	Weapon *y = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
-	//b.push(41, y);
-	/*
-	b.push(25);
-	b.push(78);
-	b.push(32);
-	b.push(10);
-	*/
+
+
 	b.displayInOrder();
 	cout << endl;
 	b.displayPreorder();
