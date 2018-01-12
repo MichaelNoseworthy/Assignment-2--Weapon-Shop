@@ -357,8 +357,7 @@ void showRoom(hashTable ht, Player *p) {
 	}
 	cout << endl;
 }
-/*
-void addWeaponstest(BinaryTree bt)
+void addWeaponstest(BinaryTree &bt)
 {
 	int index = 1;
 	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
@@ -370,8 +369,9 @@ void addWeaponstest(BinaryTree bt)
 		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, w);
 		index++;
+		weaponName = "test2"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		bt.push(index, w);
 }
-*/
 
 int main() {
 	/*
@@ -387,7 +387,7 @@ int main() {
 	cout << endl;
 	//Binary Tree Testing
 	BinaryTree b;
-	//addWeaponstest(b);
+	addWeaponstest(b);
 	
 	string weaponName = "test";int weaponRange = 1; int weaponDamage = 2; float weaponWeight = 3; float weaponCost = 3;
 	//Weapon w(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
@@ -396,7 +396,7 @@ int main() {
 	
 	
 	
-	b.push(40, w);
+	//b.push(40, w);
 	//b.push(39, w);
 	weaponName = "newtest"; weaponRange = 50; weaponDamage = 52; weaponWeight = 53; weaponCost = 53;
 	Weapon *y = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
