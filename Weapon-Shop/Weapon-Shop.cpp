@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -357,7 +358,6 @@ void showRoomtest(BinaryTree ht/*, Player *p) {
 
 }
 */
-/*
 void showRoom(BinaryTree ht, Player *p) {
 	string choice;
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
@@ -365,7 +365,10 @@ void showRoom(BinaryTree ht, Player *p) {
 	cout << " You have " << p->money << " money." << endl;
 	cout << "Please select a weapon to buy('end' to quit):"; cin >> choice;
 	while (choice.compare("end") != 0 && !p->inventoryFull()) {
-		Weapon *w = ht.get(choice);
+		stringstream geek(choice);
+		int x = 0;
+		geek >> x;
+		Weapon *w = ht.search(x);
 		if (w != NULL) {
 			if (w->cost > p->money) {
 				cout << "Insufficient funds to buy " << w->weaponName << endl;
@@ -382,7 +385,6 @@ void showRoom(BinaryTree ht, Player *p) {
 	}
 	cout << endl;
 }
-*/
 
 //OLD:
 void addWeaponstest(BinaryTree &bt)
@@ -401,6 +403,7 @@ void addWeaponstest(BinaryTree &bt)
 		Weapon *c = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, c);
 		index++;
+		weaponName = "ToHave"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 		Weapon *d = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, d);
 		index++;
@@ -429,22 +432,21 @@ int main() {
 	pl.printCharacter();
 	*/
 
-	/*
 	string pname;
 	cout << "Please enter Player name:" << endl;
 	cin >> pname;
 	Player pl(pname, 45);
-	*/
 
 	//NEW STUFF:
 	cout << endl;
 	//Binary Tree Testing
 	BinaryTree b;
-	addWeaponstest(b); // Test code
-	//addWeapons(b);
+	//addWeaponstest(b); // Test code
+	addWeapons(b);
 
-	//showRoom(b, &pl);
-	//pl.printCharacter();
+	showRoom(b, &pl);
+	pl.printCharacter();
+	/*
 	int test = 3;
 	cout << "At this point the search finds item number: " << test << endl;
 	Weapon *w = b.search(test);
