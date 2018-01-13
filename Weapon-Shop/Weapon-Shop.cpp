@@ -438,7 +438,7 @@ int main() {
 	cout << "How many weapons did you purchase? (1-2) : ";
 	cin >> Size;
 	int Array[5];
-	cout << "Which weapon(s) would you like to highlight(Item Number)? (1-2) : ";
+	cout << "Which weapon(s) would you like to highlight(Item Number)? E (1-2) : ";
 	for (int Index = 0; Index < Size; Index++)
 	{
 		cin >> Array[Index];
@@ -455,7 +455,7 @@ int main() {
 	}
 	for (int Index = 0; Index < Size - 1; Index++)
 	{
-		cout << Array[Index] << "  # Weapon remains. Thank you for shopping with us!";
+		cout << Array[Index] << "Weapon  remains. Thank you for shopping with us!";
 	}
 	
 	return 0;
