@@ -432,28 +432,29 @@ int main() {
 
 	showRoom(b, &pl); //Begin the buying of weapons
 	pl.printCharacter(); //Prints character bought weapon choices
-	pl.printBackpack(); //Prints character's backpack to show and delete weapons 
+	//pl.printBackpack(); //Prints character's backpack to show and delete weapons 
 
-	int Size;
+	int  Size;
+	Size = pl.numItems; 
 	cout << "How many weapons did you purchase? (1-2) : ";
-	cin >> Size;
+	cin >> pl.numItems;
 	int Array[5];
-	cout << "Which weapon(s) would you like to highlight(Item Number)? E (1-2) : ";
-	for (int Index = 0; Index < Size; Index++)
+	cout << "Which weapon(s) would you like to highlight(Item Number)? EXAMPLE: (1 2 3 4 5) : ";
+	for (int Index = 0; Index < pl.numItems; Index++)
 	{
 		cin >> Array[Index];
 	}
 	int position;
-	cout << "Which highlighed weapon would you like to delete(Item Number)? : ";
+	cout << "Which highlighed weapon(s) would you like to delete(Item Number)? : ";
 	cin >> position;
-	position--;
-	for (int Index = position; Index < Size; Index++)
+	//position--;
+	for (int Index = position; Index < pl.numItems; Index++)
 	{
 		int Temp = Array[Index];
 		Array[Index] = Array[Index + 1];
 		Array[Index + 1] = Temp;
 	}
-	for (int Index = 0; Index < Size - 1; Index++)
+	for (int Index = 0; Index <  pl.numItems + 1; Index++)
 	{
 		cout << "Weapon" << Array[Index] << "  remains. Thank you for shopping with us!";
 	}
