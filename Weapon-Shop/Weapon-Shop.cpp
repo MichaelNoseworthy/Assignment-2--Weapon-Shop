@@ -9,13 +9,13 @@ bool debugging = false;
 
 class Weapon {
 public:
-	string weaponName;
-	int range;
-	int damage;
-	float weight;
-	float cost;
+	string weaponName;  //The name of the weapon
+	int range; //The range of the weapon
+	int damage; //The damage that the weapon does
+	float weight; //How heavy the weapon is
+	float cost; //How much it costs to buy it
 	
-
+	//Creating the weapon
 	Weapon(string n, int rang, int dam, float w, float c) {
 		weaponName = n;
 		damage = dam;
@@ -23,13 +23,7 @@ public:
 		weight = w;
 		cost = c;
 	}
-
-	string getName()
-	{
-		string name;
-		name = weaponName;
-		return name;
-	}
+	
 };
 
 class Node
@@ -38,8 +32,9 @@ public:
 	int data;
 	Node* left;
 	Node* right;
+
+	//WeaponInfo
 	Weapon **table;
-	//Weapon
 	int tableLength;
 	int size = 5;
 	int numItems;
@@ -49,7 +44,8 @@ public:
 	Node(int d)
 	{
 		data = d;
-		//Weapon
+
+		//WeaponInfo
 		tableLength = size;
 		numItems = 0;
 		table = new Weapon*[tableLength];
@@ -74,14 +70,14 @@ public:
 
 	void push(int x, Weapon *item)
 	{
-		//Weapon
+		//WeaponInfo
 		int index = 0;
 		int tableSize = 5;
 		//WeaponEnd
 
 		Node* newNode = new Node(x);
 
-		//Weapon
+		//WeaponInfo
 		newNode->table[index] = item;
 		//WeaponEnd
 		if (root == NULL)
@@ -130,20 +126,7 @@ public:
 			if (current->data > x)
 				current = current->left;
 		}
-		return ptr = current->table[0];
-		
-			/*
-			if (parent->data == x)
-			{
-				return ptr = parent->left->table[0];
-			}
-			else
-			{
-				parent->left == searchNode;
-				return ptr = parent->left->table[0];
-			}
-			*/
-	
+		return ptr = current->table[0];	
 	}
 	
 	void displayInOrder()
@@ -159,7 +142,7 @@ public:
 			inOrder(n->left);
 			cout << "Item Number: " << n->data << " ";
 
-			//Weapon
+			//WeaponInfo
 			cout << "Name: " << n->table[0]->weaponName << "   Damage: " << n->table[0]->damage << "    Cost:" << n->table[0]->cost << endl;
 			//WeaponEnd
 
@@ -201,8 +184,8 @@ public:
 		}
 	}
 };  
-
-
+//Hashtable is no longer used.
+/*
 class hashTable {
 
 public:
@@ -257,7 +240,7 @@ public:
 		}
 	}
 }; 
-
+*/
 class Player {
 public:
 	string name;
@@ -303,23 +286,7 @@ public:
 	}
 
 };
-/*
-//OLD:
-void addWeapons(hashTable h) {
-	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
-	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
-	cout << "Please enter the NAME of the Weapon ('end' to quit):"; cin >> weaponName;
-	while (weaponName.compare("end") != 0) {
-		cout << "Please enter the Range of the Weapon (0-10):"; cin >> weaponRange;
-		cout << "Please enter the Damage of the Weapon:"; cin >> weaponDamage;
-		cout << "Please enter the Weight of the Weapon (in pounds):"; cin >> weaponWeight;
-		cout << "Please enter the Cost of the Weapon:"; cin >> weaponCost;
-		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
-		h.put(w);
-		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
-	}
-}
-*/
+
 void addWeapons(BinaryTree &bt)
 {
 	int index = 1;
@@ -337,27 +304,7 @@ void addWeapons(BinaryTree &bt)
 		cout << "Please enter the NAME of another Weapon ('end' to quit):"; cin >> weaponName;
 	}
 }
-/*
-void showRoomtest(BinaryTree ht/*, Player *p) {
-	string name;
-	int choice;
-	Weapon *w = ht.get(choice);
 
-
-	void get(choice)
-	{
-		//get location of node somhow
-			//location code of node
-		//When you have the location:
-		//Node ^ptr = n->table[0];
-		//return ptr;
-	}
-
-	name = ht.get(choice);
-	cout << name;
-
-}
-*/
 void showRoom(BinaryTree ht, Player *p) {
 	string choice;
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
@@ -386,7 +333,8 @@ void showRoom(BinaryTree ht, Player *p) {
 	cout << endl;
 }
 
-//OLD:
+//For testing and debugging purposes only
+/*
 void addWeaponstest(BinaryTree &bt)
 {
 	int index = 1;
@@ -419,6 +367,7 @@ void addWeaponstest(BinaryTree &bt)
 		Weapon *g = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, g);
 }
+*/
 int main() {
 	/*
 	//OLD STUFF:
@@ -439,13 +388,16 @@ int main() {
 
 	//NEW STUFF:
 	cout << endl;
-	//Binary Tree Testing
+
+	//Binary Tree
 	BinaryTree b;
 	//addWeaponstest(b); // Test code
-	addWeapons(b);
+	addWeapons(b); //Adding weapons to the game
 
-	showRoom(b, &pl);
-	pl.printCharacter();
+	showRoom(b, &pl); //Begin the buying of weapons
+	pl.printCharacter(); //Prints character bought weapon choices
+
+	//Debugging code:
 	/*
 	int test = 3;
 	cout << "At this point the search finds item number: " << test << endl;
@@ -466,24 +418,3 @@ int main() {
 	system("PAUSE");
 	return 0;
 }
-
-
-//Binary Tree testing:
-/*
-int main()
-{
-BinaryTree b;
-b.push(40);
-b.push(25);
-b.push(78);
-b.push(32);
-b.push(10);
-b.displayInOrder();
-cout << endl;
-b.displayPreorder();
-cout << endl;
-b.displayPostOrder();
-cout << endl;
-return 0;
-}​
-*/
