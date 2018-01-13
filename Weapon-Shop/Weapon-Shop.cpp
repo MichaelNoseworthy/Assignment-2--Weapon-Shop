@@ -72,6 +72,7 @@ public:
 		int numItems;
 	}
 
+	//INSERTION FUNCTION 
 	void push(int x, Weapon *item)
 	{
 		//WeaponInfo
@@ -112,6 +113,7 @@ public:
 		}
 	}
 
+	//SEARCH FUNCTION
 	Weapon *search(int x)
 	{
 		Node* searchNode = new Node(x);
@@ -344,7 +346,7 @@ void showRoom(BinaryTree ht, Player *p) {
 	cout << "WELCOME TO THE SHOWROOM!!!!" << endl;
 	ht.displayInOrder();
 	cout << " You have " << p->money << " money." << endl;
-	cout << "Please select a weapon to buy('end' to quit):"; cin >> choice;
+	cout << "Please select a weapon to buy(Item Number)('end' to quit):"; cin >> choice;
 	while (choice.compare("end") != 0 && !p->inventoryFull()) {
 		stringstream geek(choice);
 		int x = 0;
@@ -433,16 +435,16 @@ int main() {
 	pl.printBackpack(); //Prints character's backpack to show and delete weapons 
 
 	int Size;
-	cout << "How many weapons did you purchase? (1-5) : ";
+	cout << "How many weapons did you purchase? (1-2) : ";
 	cin >> Size;
 	int Array[5];
-	cout << "Which weapons would you like to highlight? (1-5) : ";
+	cout << "Which weapon(s) would you like to highlight(Item Number)? (1-2) : ";
 	for (int Index = 0; Index < Size; Index++)
 	{
 		cin >> Array[Index];
 	}
 	int position;
-	cout << "Which highlighed weapon would you like to delete? : ";
+	cout << "Which highlighed weapon would you like to delete(Item Number)? : ";
 	cin >> position;
 	position--;
 	for (int Index = position; Index < Size; Index++)
@@ -453,7 +455,7 @@ int main() {
 	}
 	for (int Index = 0; Index < Size - 1; Index++)
 	{
-		cout << Array[Index] << " ";
+		cout << Array[Index] << "  # Weapon remains. Thank you for shopping with us!";
 	}
 	
 	return 0;
