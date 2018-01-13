@@ -1,4 +1,7 @@
-﻿#include <iostream>
+﻿//Designed by Michael Noseworthy(101027533), Madalyn Kendrick(101007249), Kevin Ly(101044351) 
+
+
+#include <iostream>
 #include <string>
 #include <sstream>
 
@@ -131,7 +134,7 @@ public:
 	
 	void displayInOrder()
 	{
-		cout << " In-Order: " << endl;
+		cout << "Weapon List: " << endl;
 		inOrder(root);
 	}
 
@@ -140,10 +143,12 @@ public:
 		if (n != NULL)
 		{
 			inOrder(n->left);
-			cout << "Item Number: " << n->data << " ";
+			//cout << "Item Number: " << n->data << " ";
+			cout << "Name: " << n->table[0]->weaponName << "   Damage: " << n->table[0]->damage << "    Cost:" << n->table[0]->cost << " "; 
 
 			//WeaponInfo
-			cout << "Name: " << n->table[0]->weaponName << "   Damage: " << n->table[0]->damage << "    Cost:" << n->table[0]->cost << endl;
+			//cout << "Name: " << n->table[0]->weaponName << "   Damage: " << n->table[0]->damage << "    Cost:" << n->table[0]->cost << endl;
+			cout << "Item Number: " << n->data << endl; 
 			//WeaponEnd
 
 			inOrder(n->right);
@@ -259,7 +264,7 @@ public:
 		cout << w->weaponName << " bought..." << endl;
 		backpack[numItems] = w;
 		numItems++;
-		cout << numItems;
+		//cout << numItems;
 	}
 	void withdraw(float amt) {
 		money = money - amt;
