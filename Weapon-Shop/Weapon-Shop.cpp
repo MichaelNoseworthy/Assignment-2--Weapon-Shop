@@ -110,37 +110,41 @@ public:
 			parent->left = newNode;
 		}
 	}
-	/*
-	int getNode(Node data)
+
+	Weapon *search(int x)
 	{
-		if (root == data)
-		{
-			return data;
-		}
+		Node* searchNode = new Node(x);
+		searchNode->data = x;
+		Weapon* ptr;
 
 		Node* parent = root;
 		Node* current = root;
-		while (current != data)
+		while (current->data != searchNode->data)
 		{
 			parent = current;
-			if (current->data < data)
+			if (current->data < x)
 			{
 				current = current->right;
 			}
-			else
+			if (current->data > x)
 				current = current->left;
 		}
-		if (parent->data < data)
-		{
-			parent->right = newNode;
-		}
-		else
-		{
-			parent->left = newNode;
-		}
-		else return -1;
+		return ptr = current->table[0];
+		
+			/*
+			if (parent->data == x)
+			{
+				return ptr = parent->left->table[0];
+			}
+			else
+			{
+				parent->left == searchNode;
+				return ptr = parent->left->table[0];
+			}
+			*/
+	
 	}
-	*/
+	
 	void displayInOrder()
 	{
 		cout << " In-Order: " << endl;
@@ -379,34 +383,36 @@ void showRoom(BinaryTree ht, Player *p) {
 	cout << endl;
 }
 */
+
 //OLD:
 void addWeaponstest(BinaryTree &bt)
 {
 	int index = 1;
 	cout << "***********WELCOME TO THE WEAPON ADDING MENU*********" << endl;
 	string weaponName; int weaponRange; int weaponDamage; float weaponWeight; float weaponCost;
-	weaponName = "test1"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+	weaponName = "Best"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 	cout << weaponName << " " << weaponRange << " " << weaponDamage << " " << weaponWeight << " " << weaponCost << endl;
 	cout << "Begin order testing: " << endl;
 	
 		Weapon *w = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, w);
 		index++;
-		weaponName = "test3"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		weaponName = "Program"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 		Weapon *c = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, c);
 		index++;
 		Weapon *d = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, d);
 		index++;
-		weaponName = "test4"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		weaponName = "Ever"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 		Weapon *e = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, e);
 		index++;
+		weaponName = "To"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 		Weapon *f = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, f);
 		index++;
-		weaponName = "test5"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
+		weaponName = "Existed"; weaponRange = 1; weaponDamage = 2; weaponWeight = 3; weaponCost = 4;
 		Weapon *g = new Weapon(weaponName, weaponRange, weaponDamage, weaponWeight, weaponCost);
 		bt.push(index, g);
 }
@@ -439,6 +445,11 @@ int main() {
 
 	//showRoom(b, &pl);
 	//pl.printCharacter();
+	int test = 3;
+	cout << "At this point the search finds item number: " << test << endl;
+	Weapon *w = b.search(test);
+	cout << w->weaponName << endl;
+	cout << "end of testing the search." << endl;
 
 	//Testing:
 	b.displayInOrder();
