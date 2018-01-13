@@ -455,7 +455,7 @@ int main() {
 	}
 	for (int Index = 0; Index < Size - 1; Index++)
 	{
-		cout << Array[Index] << "Weapon  remains. Thank you for shopping with us!";
+		cout << "Weapon" << Array[Index] << "  remains. Thank you for shopping with us!";
 	}
 	
 	return 0;
